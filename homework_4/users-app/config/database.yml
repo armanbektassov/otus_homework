@@ -2,6 +2,11 @@ default: &default
   adapter: postgresql
   encoding: utf8
   pool: 20
+#  host: 127.0.0.1
+#  database: users_app
+#  username: postgres
+#  password: mysecretpassword
+#  port: 54322
   host: <%= ENV['DATABASE_HOST'] %>
   database: <%= ENV['DATABASE_NAME'] %>
   username: <%= ENV['DATABASE_USER'] %>

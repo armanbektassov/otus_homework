@@ -5,6 +5,7 @@ gem "activerecord"
 gem "rake"
 gem "sinatra-activerecord", '~> 2.0'
 gem 'bigdecimal'
+gem "prometheus-client"
 
 group :production, :development, :test do
   gem 'pg', '~> 0.15'
