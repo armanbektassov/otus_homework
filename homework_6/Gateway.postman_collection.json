@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "10a0cb6a-365d-4e7d-9664-5f132cd0d86b",
+		"name": "Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3731239"
+	},
+	"item": [
+		{
+			"name": "Регистрация пользователя 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "firstname",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "lastname",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}register",
+					"host": [
+						"{{base_url}}register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка ендпоинта профиля без токена",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}api/profile/1",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"profile",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка изменения пользователя без токена",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "firstname",
+							"value": "firstname",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "lastname",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/users/1",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Вход пользователя 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}login",
+					"host": [
+						"{{base_url}}login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Обновление пользователя 1",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzUzMjQzMDAsImlhdCI6MTczNTMyMDcwMCwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwidXBkYXRpbmdfdXNlciJdLCJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6InRlc3QifX0.Y9BwaerYkVwAtjwDhbSjYpMzgagPR3x-9LK3Y0Doh64",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "firstname",
+							"value": "firstname",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "lastname",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/users/1",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Профиль пользователя 1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzUzMjQzNzcsImlhdCI6MTczNTMyMDc3NywiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwidXBkYXRpbmdfdXNlciJdLCJ1c2VyIjp7ImlkIjoyLCJ1c2VybmFtZSI6InRlc3QxIn19.uD6-o11PYXGsxhM7o-31SIGxj8PdOeQz0ojwyX188Os",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}api/profile/1",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"profile",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Регистрация пользователя 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test2",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "firstname2",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "lastname2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}register",
+					"host": [
+						"{{base_url}}register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Вход пользователя 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}login",
+					"host": [
+						"{{base_url}}login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://arch.homework/",
+			"type": "string"
+		}
+	]
+}
