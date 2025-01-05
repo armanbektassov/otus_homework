@@ -1,0 +1,16 @@
+### POST request to example server
+POST http://127.0.0.1:9292/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "tomdelonge",
+  "password": "allthesmallthings"
+}
+
+###
+
+GET http://127.0.0.1:9292/api/money
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzQ4NTczNTEsImlhdCI6MTczNDg1Mzc1MSwiaXNzIjoiYXV0aCIsInNjb3BlcyI6WyJhZGRfbW9uZXkiLCJyZW1vdmVfbW9uZXkiLCJ2aWV3X21vbmV5Il0sInVzZXIiOnsidXNlcm5hbWUiOiJ0b21kZWxvbmdlIn19.DYGh7r0Axbrm85nY2jUHfU0Adc0c1caUaIjtWLV7X-4

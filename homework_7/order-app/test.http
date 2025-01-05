@@ -1,0 +1,9 @@
+### GET request to example server
+GET http://arch.homework/users
+
+###
+GET http://localhost:4567/send_message
+
+###
+
+GET http://localhost:4567/consume_message
