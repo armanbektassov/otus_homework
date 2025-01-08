@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "45883922-e754-4655-95c8-0f5acc5675eb",
+		"name": "Billing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3731239"
+	},
+	"item": [
+		{
+			"name": "Создание акаунта",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pass",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "firstname",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "lastname",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}register",
+					"host": [
+						"{{base_url}}register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Вход в акаунт",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}login",
+					"host": [
+						"{{base_url}}login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Положить средства на счет",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzYwOTg2NjksImlhdCI6MTczNjA5NTA2OSwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwiYmlsbGluZ191c2VyIiwib3JkZXJfdXNlciIsIm5vdGlmaWNhdGlvbl91c2VyIl0sInVzZXIiOnsiaWQiOjgsInVzZXJuYW1lIjoidXNlciJ9fQ.a65MG1AklYax2Ss-KjrwMm8ZIY1inghfy7nfh6REC9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "amount",
+							"value": "110",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "lastname",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/billing",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"billing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение акаунта с информацией о счете",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzYwOTg2NjksImlhdCI6MTczNjA5NTA2OSwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwiYmlsbGluZ191c2VyIiwib3JkZXJfdXNlciIsIm5vdGlmaWNhdGlvbl91c2VyIl0sInVzZXIiOnsiaWQiOjgsInVzZXJuYW1lIjoidXNlciJ9fQ.a65MG1AklYax2Ss-KjrwMm8ZIY1inghfy7nfh6REC9M",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}api/profile",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создать заказ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzYwOTg2NjksImlhdCI6MTczNjA5NTA2OSwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwiYmlsbGluZ191c2VyIiwib3JkZXJfdXNlciIsIm5vdGlmaWNhdGlvbl91c2VyIl0sInVzZXIiOnsiaWQiOjgsInVzZXJuYW1lIjoidXNlciJ9fQ.a65MG1AklYax2Ss-KjrwMm8ZIY1inghfy7nfh6REC9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "order_name",
+							"value": "Order #1",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "13",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/orders",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение нотификаций пользователя",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzYwOTg2NjksImlhdCI6MTczNjA5NTA2OSwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwiYmlsbGluZ191c2VyIiwib3JkZXJfdXNlciIsIm5vdGlmaWNhdGlvbl91c2VyIl0sInVzZXIiOnsiaWQiOjgsInVzZXJuYW1lIjoidXNlciJ9fQ.a65MG1AklYax2Ss-KjrwMm8ZIY1inghfy7nfh6REC9M",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}api/notifications",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://arch.homework/",
+			"type": "string"
+		}
+	]
+}
