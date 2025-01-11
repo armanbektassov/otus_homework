@@ -1,0 +1,11 @@
+require 'bundler'
+Bundler.require
+
+require 'sinatra/activerecord/rake'
+
+namespace :db do
+  desc "Seed the database with initial data"
+  task :seed do
+    require './db/seeds'
+  end
+end

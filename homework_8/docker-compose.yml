@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  order-app:
+    build: ./order-app
+    container_name: order_app
+    ports:
+      - "4567:4567" # Sinatra default port
+    environment:
+      - RACK_ENV=development
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - DATABASE_HOST=127.0.0.1
+      - DATABASE_NAME=users_app
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecretpassword
+      - DATABASE_PORT=54322
+    depends_on:
+      - rabbitmq
+  billing-app:
+    build: ./billing-app
+    container_name: billing_app
+    ports:
+      - "4568:4567" # Sinatra default port
+    environment:
+      - RACK_ENV=development
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - DATABASE_HOST=127.0.0.1
+      - DATABASE_NAME=users_app
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecretpassword
+      - DATABASE_PORT=54322
+    depends_on:
+      - rabbitmq
+  delivery-app:
+    build: ./delivery-app
+    container_name: delivery
+    ports:
+      - "4569:4567" # Sinatra default port
+    environment:
+      - RACK_ENV=development
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - DATABASE_HOST=127.0.0.1
+      - DATABASE_NAME=users_app
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecretpassword
+      - DATABASE_PORT=54322
+    depends_on:
+      - rabbitmq
+  storage-app:
+    build: ./storage-app
+    container_name: storage
+    ports:
+      - "4566:4567" # Sinatra default port
+    environment:
+      - RACK_ENV=development
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - DATABASE_HOST=127.0.0.1
+      - DATABASE_NAME=users_app
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=mysecretpassword
+      - DATABASE_PORT=54322
+    depends_on:
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "15672:15672"  # RabbitMQ management plugin (HTTP UI)
+      - "5672:5672"    # RabbitMQ AMQP protocol
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  rabbitmq_data:
+    driver: local
