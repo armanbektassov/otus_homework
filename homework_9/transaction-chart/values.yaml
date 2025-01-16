@@ -1,0 +1,94 @@
+gateway:
+  name: gateway-app
+  image:
+    repository: armanbektassov/hw8_gateway
+    tag: "1.4"
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 4567
+
+account:
+  name: account-app
+  image:
+    repository: armanbektassov/hw8_account
+    tag: "1.0"
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 4567
+
+billing:
+  name: billing-app
+  image:
+    repository: armanbektassov/hw8_billing
+    tag: "1.3"
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 4567
+
+order:
+  name: order-app
+  image:
+    repository: armanbektassov/hw8_order
+    tag: "2.1"
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 4567
+
+delivery:
+  name: delivery-app
+  image:
+    repository: armanbektassov/hw8_delivery
+    tag: "1.7"
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 4567
+
+storage:
+  name: storage-app
+  image:
+    repository: armanbektassov/hw8_storage
+    tag: "2.1"
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 4567
+
+postgres:
+  name: postgres
+  image:
+    repository: postgres
+    tag: "14"
+  replicas: 1
+  service:
+    type: NodePort
+    port: 5432
+
+rmq:
+  name: rabbitmq
+  image:
+    repository: rabbitmq
+    tag: "management"
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 5672
+
+ingress:
+  enabled: true
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
