@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+
+gem "sinatra"
+gem "rake"
+gem "prometheus-client"
+gem 'jwt'
+gem 'rest-client'
