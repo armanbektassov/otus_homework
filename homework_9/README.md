@@ -43,4 +43,3 @@ helm uninstall transaction-chart
 В сервисе order реализована Saga orchestration, то есть сервис управляет всей логикой заказа.
 
 <i>В файле newman_test.jpg приложен скриншот от newman тестa.</i>
-
