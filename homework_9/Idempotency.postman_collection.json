@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "8d9c5c15-ccad-456b-bf6f-ba61691243b1",
+		"name": "Order saga",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3731239"
+	},
+	"item": [
+		{
+			"name": "Создание акаунта",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pass",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "firstname",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "lastname",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}register",
+					"host": [
+						"{{base_url}}register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Вход в акаунт",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}login",
+					"host": [
+						"{{base_url}}login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Положить средства на счет",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzcwMTIwMzEsImlhdCI6MTczNzAwODQzMSwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwiYmlsbGluZ191c2VyIiwib3JkZXJfdXNlciJdLCJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6InVzZXIifX0.MiFmouFfPqxu008DEhWxAEDonSSkwaTg6k5tjZc89vg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "amount",
+							"value": "140",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "lastname",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/billing",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"billing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение акаунта с информацией о счете",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzcwMTIwMzEsImlhdCI6MTczNzAwODQzMSwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwiYmlsbGluZ191c2VyIiwib3JkZXJfdXNlciJdLCJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6InVzZXIifX0.MiFmouFfPqxu008DEhWxAEDonSSkwaTg6k5tjZc89vg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}api/profile",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение товаров",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}products",
+					"host": [
+						"{{base_url}}products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение слотов времени курьера",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}couriers",
+					"host": [
+						"{{base_url}}couriers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создать заказ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzcwMTIwMzEsImlhdCI6MTczNzAwODQzMSwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwiYmlsbGluZ191c2VyIiwib3JkZXJfdXNlciJdLCJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6InVzZXIifX0.MiFmouFfPqxu008DEhWxAEDonSSkwaTg6k5tjZc89vg",
+						"type": "text"
+					},
+					{
+						"key": "Idempotency-Key",
+						"value": "KG5LxwFBepaKHyUD",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "product_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "delivery_hour",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "product_quantity",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/orders",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение заказов",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzY1ODE3MTYsImlhdCI6MTczNjU3ODExNiwiaXNzIjoiZ2F0ZXdheS1hcHAiLCJzY29wZXMiOlsicHJvZmlsZV91c2VyIiwiYmlsbGluZ191c2VyIiwib3JkZXJfdXNlciJdLCJ1c2VyIjp7ImlkIjo4LCJ1c2VybmFtZSI6InVzZXIifX0.kMteGOZQ1IONGZB9VTRNYKcnWuq41itw6ygcqgfUGwU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}api/orders",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://arch.homework/",
+			"type": "string"
+		}
+	]
+}
