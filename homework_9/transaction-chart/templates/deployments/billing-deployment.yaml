@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.billing.name }}
+  labels:
+    app: {{ .Values.billing.name }}
+spec:
+  replicas: {{ .Values.billing.replicas }}
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: {{ .Values.billing.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.billing.name }}
+    spec:
+      containers:
+        - name: {{ .Values.billing.name }}
+          image: "{{ .Values.billing.image.repository }}:{{ .Values.billing.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.billing.service.targetPort }}
+          env:
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_name
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_password
+            - name: DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_host
+            - name: DATABASE_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_port
+            - name: RABBITMQ_URL
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: RABBITMQ_URL
+          envFrom:
+            - configMapRef:
+                name: env-config
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.billing.service.targetPort }}
+            initialDelaySeconds: 20
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.billing.service.targetPort }}
+            initialDelaySeconds: 20
+            periodSeconds: 60
