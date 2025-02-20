@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.order_worker.name }}
+  labels:
+    app: {{ .Values.order_worker.name }}
+spec:
+  replicas: {{ .Values.order_worker.replicas }}
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: {{ .Values.order_worker.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.order_worker.name }}
+    spec:
+      containers:
+        - name: {{ .Values.order_worker.name }}
+          image: "{{ .Values.order_worker.image.repository }}:{{ .Values.order_worker.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.order_worker.service.targetPort }}
+          env:
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_name_order
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_password
+            - name: DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_host
+            - name: DATABASE_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_port
+            - name: RABBITMQ_URL
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: RABBITMQ_URL
+          envFrom:
+            - configMapRef:
+                name: env-config
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.order_worker.service.targetPort }}
+            initialDelaySeconds: 20
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.order_worker.service.targetPort }}
+            initialDelaySeconds: 20
+            periodSeconds: 60

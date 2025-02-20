@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.delivery.name }}-service
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "4567"
+    prometheus.io/path: "/metrics"
+spec:
+  selector:
+    app: {{ .Values.delivery.name }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.delivery.service.port }}
+      targetPort: {{ .Values.delivery.service.targetPort }}
+      name: http
+  type: {{ .Values.delivery.service.type }}

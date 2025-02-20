@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.gateway.name }}
+  labels:
+    app: {{ .Values.gateway.name }}
+spec:
+  replicas: {{ .Values.gateway.replicas }}
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: {{ .Values.gateway.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.gateway.name }}
+    spec:
+      containers:
+        - name: {{ .Values.gateway.name }}
+          image: "{{ .Values.gateway.image.repository }}:{{ .Values.gateway.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.gateway.service.targetPort }}
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secret-config
+                  key: jwt_secret
+            - name: JWT_ISSUER
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secret-config
+                  key: jwt_issuer
+            - name: ACCOUNT_APP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secret-config
+                  key: account_app_url
+            - name: BILLING_APP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secret-config
+                  key: billing_app_url
+            - name: ORDER_APP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secret-config
+                  key: order_app_url
+            - name: KITCHEN_APP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secret-config
+                  key: kitchen_app_url
+            - name: DELIVERY_APP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-secret-config
+                  key: delivery_app_url
+          envFrom:
+            - configMapRef:
+                name: env-config
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.billing.service.targetPort }}
+            initialDelaySeconds: 20
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.billing.service.targetPort }}
+            initialDelaySeconds: 20
+            periodSeconds: 60
