@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.kitchen.name }}
+  labels:
+    app: {{ .Values.kitchen.name }}
+spec:
+  replicas: {{ .Values.kitchen.replicas }}
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: {{ .Values.kitchen.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.kitchen.name }}
+    spec:
+      containers:
+        - name: {{ .Values.kitchen.name }}
+          image: "{{ .Values.kitchen.image.repository }}:{{ .Values.kitchen.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.kitchen.service.targetPort }}
+          env:
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_name_kitchen
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_password
+            - name: DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_host
+            - name: DATABASE_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret-config
+                  key: database_port
+            - name: RABBITMQ_URL
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: RABBITMQ_URL
+          envFrom:
+            - configMapRef:
+                name: env-config
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.kitchen.service.targetPort }}
+            initialDelaySeconds: 20
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.kitchen.service.targetPort }}
+            initialDelaySeconds: 20
+            periodSeconds: 60

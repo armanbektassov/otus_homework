@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.order_worker.name }}-service
+spec:
+  selector:
+    app: {{ .Values.order_worker.name }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.order_worker.service.port }}
+      targetPort: {{ .Values.order_worker.service.targetPort }}
+      name: http
+  type: {{ .Values.order_worker.service.type }}
